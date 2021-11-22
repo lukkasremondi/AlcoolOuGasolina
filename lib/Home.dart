@@ -46,6 +46,8 @@ class _HomeState extends State<Home> {
     //Limpa os campos
     //_limparCampos();
 
+    FocusScope.of(context).unfocus();
+
   }
 
   void _limparCampos (){
