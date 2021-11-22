@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -84,8 +86,24 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
+
               //Campo digitalvel preco alcool
-              TextField(
+              /*
+              O código abaixo verifica se a plataforma é um iOS ou Android.
+              Devido a diferença de teclados, no iOS é necessário exibir
+              um teclado do tipo TEXTO, para que o ponto (.) seja exibido
+              enquanto no Android, o teclado numérico já possui o ponto (.)
+               */
+              Platform.isIOS ? (TextField(
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                    labelText: "Preço Alcool, ex: 5.29"
+                ),
+                style: TextStyle(
+                    fontSize: 22
+                ),
+                controller: _controllerAlcool,
+              )) : (TextField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     labelText: "Preço Alcool, ex: 5.29"
@@ -94,10 +112,13 @@ class _HomeState extends State<Home> {
                     fontSize: 22
                 ),
                 controller: _controllerAlcool,
-              ),
+              )),
+
+
               //Campo digitável preco gasolina
+              Platform.isIOS ? (
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     labelText: "Preço Gasolina, ex: 6.69"
                 ),
@@ -105,6 +126,19 @@ class _HomeState extends State<Home> {
                     fontSize: 22
                 ),
                 controller: _controllerGasolina,
+              )
+              ) :
+              (
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        labelText: "Preço Gasolina, ex: 6.69"
+                    ),
+                    style: TextStyle(
+                        fontSize: 22
+                    ),
+                    controller: _controllerGasolina,
+                  )
               ),
               //Botao calcular
               Padding(
@@ -130,7 +164,7 @@ class _HomeState extends State<Home> {
                       fontWeight: FontWeight.bold
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
